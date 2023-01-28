@@ -155,7 +155,7 @@ export class Rest {
      * @param identifier Track ID
      * @returns A promise that resolves to a Lavalink response
      */
-    public resolve(identifier: string): Promise<LavalinkResponse|{}> {
+    public resolve(identifier: string): Promise<LavalinkResponse|null> {
         const options = {
             endpoint: '/loadtracks',
             options: { params: { identifier }}
@@ -168,7 +168,7 @@ export class Rest {
      * @param track Encoded track
      * @returns Promise that resolves to a track
      */
-    public decode(track: string): Promise<Track|{}> {
+    public decode(track: string): Promise<Track|null> {
         const options = {
             endpoint: '/decodetrack',
             options: { params: { track }}
@@ -196,7 +196,7 @@ export class Rest {
      * Gets all the player with the specified sessionId
      * @returns Promise that resolves to an array of Lavalink players
      */
-    public getPlayer(guildId: string): Promise<LavalinkPlayer|{}> {
+    public getPlayer(guildId: string): Promise<LavalinkPlayer|null> {
         const options = {
             endpoint: `/sessions/${this.sessionId}/players/${guildId}`,
             options: {}
@@ -209,7 +209,7 @@ export class Rest {
      * @param data SessionId from Discord
      * @returns Promise that resolves to a Lavalink player
      */
-    public updatePlayer(data: UpdatePlayerInfo): Promise<LavalinkPlayer|{}> {
+    public updatePlayer(data: UpdatePlayerInfo): Promise<LavalinkPlayer|null> {
         const options = {
             endpoint: `/sessions/${this.sessionId}/players/${data.guildId}`,
             options: {
@@ -240,7 +240,7 @@ export class Rest {
      * @param timeout Timeout to wait for resuming
      * @returns Promise that resolves to a Lavalink player
      */
-    public updateSession(resumingKey?: string, timeout?: number): Promise<SessionInfo|{}> {
+    public updateSession(resumingKey?: string, timeout?: number): Promise<SessionInfo|null> {
         const options = {
             endpoint: `/sessions/${this.sessionId}`,
             options: {
@@ -256,7 +256,7 @@ export class Rest {
      * Gets the status of this node
      * @returns Promise that resolves to a node stats response
      */
-    public stats(): Promise<NodeStats|{}> {
+    public stats(): Promise<NodeStats|null> {
         const options = {
             endpoint: '/stats',
             options: {}
@@ -268,7 +268,7 @@ export class Rest {
      * Get routplanner status from Lavalink
      * @returns Promise that resolves to a routeplanner response
      */
-    public getRoutePlannerStatus(): Promise<RoutePlanner> {
+    public getRoutePlannerStatus(): Promise<RoutePlanner|null> {
         const options = {
             endpoint: '/routeplanner/status',
             options: {}
@@ -340,7 +340,7 @@ export class Rest {
         try {
             return await request.json() as T;
         } catch (error) {
-            return {};
+            return null;
         }
     }
 }
